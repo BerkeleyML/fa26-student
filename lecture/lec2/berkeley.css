@@ -1,0 +1,55 @@
+
+/* Default (light mode) colors - these apply when .cal is present,
+   and the dark mode class is NOT present on the body. */
+.cal {
+  --text-color: #002676;
+  --background-color: #FDB515;
+}
+
+
+/* VS code theme switching */
+@media (prefers-color-scheme: dark) {
+  .cal {
+    /* Dark mode colors, applied when OS preference is dark */
+    --text-color: #FDB515;
+    --background-color: #002676;
+  }
+}
+
+
+/* Override colors when JupyterLab's dark theme is active */
+body[data-jp-theme-light="false"] .cal {
+  --text-color: #FDB515;
+  --background-color: #002676;
+}
+
+/* Specific styles for California-themed headings, using the custom properties */
+.cal-h1 {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  padding: 10pt;
+  border-top: 2pt solid var(--text-color);
+  border-bottom: 2pt solid var(--text-color);
+}
+
+.cal-h2 {
+  color: var(--text-color);
+  padding: 10pt;
+  border-top: 2pt solid var(--text-color);
+  border-left: 2pt solid var(--text-color);
+  margin-top: 125pt;
+  margin-bottom: 20pt;
+}
+
+.cal-h3 {
+  color: var(--text-color);
+  padding-top: 10pt;
+  border-top: 2pt solid var(--text-color);
+  margin-top: 50pt;
+  margin-bottom: 20pt;
+}
+
+.cal-h4 {
+  color: var(--text-color);
+  margin-top: 20pt;
+}
