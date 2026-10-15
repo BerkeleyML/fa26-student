@@ -1,0 +1,108 @@
+
+/* Default (light mode) colors - these apply when .cal is present,
+   and the dark mode class is NOT present on the body. */
+.cal {
+  --text-color: #002676;
+  --background-color: #FDB515;
+}
+
+
+/* VS code theme switching */
+@media (prefers-color-scheme: dark) {
+  .cal {
+    /* Dark mode colors, applied when OS preference is dark */
+    --text-color: #FDB515;
+    --background-color: #002676;
+  }
+}
+
+
+/* Override colors when JupyterLab's dark theme is active */
+body[data-jp-theme-light="false"] .cal {
+  --text-color: #FDB515;
+  --background-color: #002676;
+}
+
+/* Specific styles for California-themed headings, using the custom properties */
+.cal-h1 {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  padding: 10pt;
+  border-top: 2pt solid var(--text-color);
+  border-bottom: 2pt solid var(--text-color);
+}
+
+.cal-h2 {
+  color: var(--text-color);
+  padding: 10pt;
+  border-top: 2pt solid var(--text-color);
+  border-left: 2pt solid var(--text-color);
+  margin-top: 125pt;
+  margin-bottom: 20pt;
+}
+
+.cal-h3 {
+  color: var(--text-color);
+  padding-top: 10pt;
+  border-top: 2pt solid var(--text-color);
+  margin-top: 50pt;
+  margin-bottom: 20pt;
+}
+
+.cal-h4 {
+  color: var(--text-color);
+  margin-top: 20pt;
+}
+
+/* ---------------------------------------------------------------------
+   Dark mode for the rendered (nbconvert) HTML page itself.
+
+   nbconvert's HTMLExporter only bakes in JupyterLab's *light* theme
+   values for the --jp-* custom properties and ships no
+   prefers-color-scheme fallback of its own, so the page background,
+   cell backgrounds, and body text stay white/black even though the
+   .cal headings above already switch correctly. Almost every
+   background/text/border rule nbconvert generates reads one of these
+   variables (e.g. `.jp-Notebook { background: var(--jp-layout-color0) }`,
+   which is what actually paints <body>), so redefining them here
+   recolors the whole page without touching nbconvert's own CSS. This
+   works because each notebook markdown cell links berkeley.css from
+   inside <body>, so it loads after (and overrides) nbconvert's <head>
+   styles. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --jp-layout-color0: #111111;
+    --jp-layout-color1: #212121;
+    --jp-layout-color2: #393939;
+    --jp-layout-color3: #515151;
+    --jp-layout-color4: #656565;
+
+    --jp-content-font-color0: #ffffff;
+    --jp-content-font-color1: rgba(255, 255, 255, 1);
+    --jp-content-font-color2: rgba(255, 255, 255, 0.7);
+    --jp-content-font-color3: rgba(255, 255, 255, 0.5);
+    --jp-content-link-color: var(--md-blue-300);
+
+    --jp-ui-font-color0: rgba(255, 255, 255, 1);
+    --jp-ui-font-color1: rgba(255, 255, 255, 0.87);
+    --jp-ui-font-color2: rgba(255, 255, 255, 0.54);
+    --jp-ui-font-color3: rgba(255, 255, 255, 0.38);
+
+    --jp-border-color0: #616161;
+    --jp-border-color1: #616161;
+    --jp-border-color2: #757575;
+    --jp-border-color3: #9e9e9e;
+    --jp-inverse-border-color: #9e9e9e;
+
+    --jp-cell-editor-background: #1e1e1e;
+    --jp-cell-editor-background-color: #1e1e1e;
+    --jp-cell-editor-border-color: #616161;
+    --jp-mirror-editor-variable-color: #d4d4d4;
+
+    --jp-rendermime-error-background: #4c1f1f;
+    --jp-rendermime-table-row-background: #2c2c2c;
+    --jp-rendermime-table-row-hover-background: #37474f;
+    --jp-warn-color0: var(--md-orange-300);
+    --jp-error-color0: var(--md-red-300);
+  }
+}
